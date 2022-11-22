@@ -9,7 +9,7 @@ services:
       - percona-db
 
   percona-db:
-    build: ./app
+    build: ./db
     restart: always
     environment:
       MYSQL_DATABASE: 'test'
