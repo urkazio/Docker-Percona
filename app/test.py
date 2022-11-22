@@ -1,7 +1,7 @@
 import mysql.connector
 
 db = mysql.connector.connect(
-    host = 'percona-db', user = 'root', password = 'root', port = 3306, database = 'test')
+    host = 'db', user = 'root', password = 'root', port = 3306, database = 'test')
 print("Conexion establecida")
 
 cursor = db.cursor()
