@@ -19,6 +19,6 @@ services:
       - 3306:3306
     volumes:
       - percona-vol:/db
-  volumes:
-    percona-vol: 
-      external: true
+volumes:
+  percona-vol: 
+    external: true
