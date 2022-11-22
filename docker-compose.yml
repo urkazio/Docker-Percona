@@ -7,8 +7,8 @@ services:
       - 80:5000
     links:
       - db
-    command:
-      ls
+    volumes:
+      - ./app:/app
   
   db:
     image: percona/percona-server
@@ -19,8 +19,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - percona-vol:/var/lib/mysql
+      - ./db:/var/lib/mysql
 
 volumes:
   percona-vol: 
