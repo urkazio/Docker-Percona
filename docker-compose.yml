@@ -8,7 +8,7 @@ services:
     links:
       - percona-db
     volumes:
-      - percona-vol:/app
+      - .:/app
   percona-db:
     image: percona/percona-server
     restart: always
@@ -18,7 +18,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - percona-vol:/db
+      - .:/db
 volumes:
   percona-vol: 
     external: true
