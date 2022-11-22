@@ -1,35 +1,29 @@
-from typing import List, Dict
 from flask import Flask
 import mysql.connector
-import json
-import datetime
+import time
+import os
 
 app = Flask(__name__)
 db = mysql.connector.connect(host = 'perconadb', user = 'root', password = 'root', port = 3306)
 
-def test_table() -> List[Dict]:
+def get_count():
+    retries = 5
+    while True:
+        try:
+            cursor = db.cursor()
+            cursor.execute("Select * from test_table")
+            num = cursor.fetchall()
+            db.close()
+            print(num)
 
-    cnx = mysql.connector.connect(user='root', database='employees')
-    cursor = cnx.cursor()
-
-    query = ("SELECT first_name, last_name, hire_date FROM employees "
-            "WHERE hire_date BETWEEN %s AND %s")
-
-    hire_start = datetime.date(1999, 1, 1)
-    hire_end = datetime.date(1999, 12, 31)
-
-    cursor.execute(query, (hire_start, hire_end))
-
-    cursor.close()
-    cnx.close()
-
-    return cursor
-
+            return num
+        except db.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
 
 @app.route('/')
-def index() -> str:
-    return json.dumps({'test_table': test_table()})
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+def hello():
+    count = get_count()
+    return 'Eyyyy!!!!!!! Has venido {} veces. Estamos por los helaos no te coles\n'.format(count)
