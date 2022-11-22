@@ -1,5 +1,5 @@
 FROM python:3.11-alpine
-COPY ./* ./
+COPY . ./
 WORKDIR /app
 EXPOSE 5000
 # ENV FLASK_APP=app.py
