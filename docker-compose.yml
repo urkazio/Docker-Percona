@@ -4,7 +4,7 @@ services:
   app:
     build: ./app
     ports:
-      - 80:5000
+      - "5000:5000"
     links:
       - db
 
@@ -16,3 +16,5 @@ services:
       - "3306:3306"
     expose:
       - '3306'
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
