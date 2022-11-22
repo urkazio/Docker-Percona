@@ -5,14 +5,15 @@ services:
     build: ./app
     ports:
       - "80:5000"
+    command: sh -c "sleep 10s ; python3 ./test.py"
     links:
-      - db
+      - percona-db
 
-  db:
-    image: percona
+  percona-db:
+    build: ./app
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test'
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro

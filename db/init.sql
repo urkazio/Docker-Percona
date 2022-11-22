@@ -1,5 +1,5 @@
-create database testapp;
-use testapp;
+create database test;
+use test;
 
 CREATE TABLE test_table (
   name VARCHAR(20),
