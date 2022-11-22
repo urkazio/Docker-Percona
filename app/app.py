@@ -1,64 +1,33 @@
+from typing import List, Dict
+from flask import Flask
 import mysql.connector
 import json
-from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, Docker!'
 
-@app.route('/')
-def get_widgets():
-    mydb = mysql.connector.connect(
-        host="db",
-        user="root",
-        password="password",
-        database="employees"
-    )
-    cursor = mydb.cursor()
-
-
-    cursor.execute("SELECT * FROM widgets")
-
-    row_headers=[x[0] for x in cursor.description] 
-
-    results = cursor.fetchall()
-    json_data=[]
-    for result in results:
-        json_data.append(dict(zip(row_headers,result)))
-
+def test_table() -> List[Dict]:
+    config = {
+        'user': 'root',
+        'password': 'root',
+        'host': 'db',
+        'port': '3306',
+        'database': 'testapp'
+    }
+    connection = mysql.connector.connect(**config)
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM test_table')
+    results = [{name: color} for (name, color) in cursor]
     cursor.close()
+    connection.close()
 
-    return json.dumps(json_data)
+    return results
+
 
 @app.route('/')
-def db_init():
-    mydb = mysql.connector.connect(
-        host="db",
-        user="root",
-        password="password",
-        database="employees"
-    )
-    cursor = mydb.cursor()
+def index() -> str:
+    return json.dumps({'test_table': test_table()})
 
-    cursor.execute("DROP DATABASE IF EXISTS employees")
-    cursor.execute("CREATE DATABASE employees")
-    cursor.close()
 
-    mydb = mysql.connector.connect(
-        host="db",
-        user="root",
-        password="password",
-        database="employees"
-    )
-    cursor = mydb.cursor()
-
-    cursor.execute("DROP TABLE IF EXISTS widgets")
-    cursor.execute("CREATE TABLE widgets (name VARCHAR(255), description VARCHAR(255))")
-    cursor.close()
-
-    return 'init database'
-
-if __name__ == "__main__":
-    app.run(host ='0.0.0.0')
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')

@@ -1,22 +1,18 @@
 version: '3.8'
 
 services:
-  web:
-    build:
-      context: .
+  app:
+    build: ./app
     ports:
-      - 80:3306
-    volumes:
-      - ./:/datos
-    environment:
-      FLASK_DEBUG: 1
-
+      - 80:5000
+    links:
+      - db
 
   db:
     image: percona
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD= root
     ports:
-      - 3306:3306
+      - "3306:3306"
     expose:
       - '3306'
