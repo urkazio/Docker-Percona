@@ -4,7 +4,7 @@ import time
 import os
 
 app = Flask(__name__)
-db = mysql.connector.connect(host = 'perconadb', user = 'root', password = 'root', port = 3306)
+db = mysql.connector.connect(host = 'percona-db', user = 'root', password = 'root', port = 3306)
 
 def get_count():
     retries = 5
