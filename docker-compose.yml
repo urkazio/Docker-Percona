@@ -11,7 +11,7 @@ services:
   db:
     image: percona
     environment:
-      - MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     expose:
