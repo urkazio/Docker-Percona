@@ -1,34 +1,28 @@
+from typing import List, Dict
 from flask import Flask
 import mysql.connector
-import time
+import json
 import os
+
 
 app = Flask(__name__)
 db = mysql.connector.connect(
         host = 'db', user = 'root', password = 'root', port = 3306, database = 'test')
 
 
-def get_count():
-    retries = 5
-    while True:
-        try:
-            db = mysql.connector.connect(
+def favorite_colors() -> List[Dict]:
+   
+    db = mysql.connector.connect(
                         host = 'percona-db', user = 'root', password = 'root', port = 3306, database = 'test')
-            print("Conexion establecida")
-            cursor = db.cursor()
-            cursor.execute("Select * from test_table")
-            num = cursor.fetchall()
-            db.close()
-            print(num)
-
-            return num
-        except db.exceptions.ConnectionError as exc:
-            if retries == 0:
-                raise exc
-            retries -= 1
-            time.sleep(0.5)
+    print("Conexion establecida")
+    cursor = db.cursor()
+    cursor.execute("Select * from test_table")
+    results = [{name: color} for (name, color) in cursor]
+    cursor.close()
+    db.close()
+    return results
+    
 
 @app.route('/')
 def hello():
-    count = get_count()
-    return 'Eyyyy!!!!!!! Has venido {} veces. Estamos por los helaos no te coles\n'.format(count)
+    return json.dumps({'favorite_colors': favorite_colors()})
