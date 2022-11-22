@@ -6,10 +6,9 @@ services:
     ports:
       - 80:5000
     links:
-      - percona-db
-    volumes:
-      - .:/app
-  percona-db:
+      - db
+  
+  db:
     image: percona/percona-server
     restart: always
     environment:
@@ -18,7 +17,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - .:/db
+      - percona-vol:/var/lib/mysql
+
 volumes:
   percona-vol: 
-    external: true
