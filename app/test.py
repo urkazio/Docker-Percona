@@ -5,7 +5,8 @@ db = mysql.connector.connect(
 print("Conexion establecida")
 
 cursor = db.cursor()
-cursor.execute("Select * from test_table")
+cursor.execute('Select * from test_table')
 num = cursor.fetchall()
 db.close()
+
 print(num)
