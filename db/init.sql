@@ -1,5 +1,6 @@
-create database test;
-use test;
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE IF NOT EXISTS test;
+USE test;
 
 CREATE TABLE test_table (
   name VARCHAR(20),
