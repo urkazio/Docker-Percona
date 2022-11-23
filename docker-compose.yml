@@ -1,14 +1,6 @@
 version: '3.8'
 
-services:
-  app:
-    build: ./app
-    ports:
-      - 80:5000
-    restart: always
-    links:
-      - db
-  
+services:  
   db:
     image: percona
     restart: always
@@ -17,7 +9,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-       - ./db:/docker-entrypoint-initdb.d
+       - ./db:/docker-entrypoint-initdb.d/:ro
   adminer:
     image: adminer
     restart: always
