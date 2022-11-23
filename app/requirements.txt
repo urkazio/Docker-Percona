@@ -1,6 +1,5 @@
 flask
 mysql.connector
-typing
 cryptography
 Flask-MySQL
 PyMySQL

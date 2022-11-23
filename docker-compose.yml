@@ -10,11 +10,16 @@ services:
       - db
   
   db:
-    image: percona/percona-server
+    image: percona
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
     volumes:
-       - ./db:/docker-entrypoint-initdb.d/:ro
+       - ./db:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
