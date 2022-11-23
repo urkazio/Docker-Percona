@@ -2,4 +2,6 @@ flask
 mysql.connector
 typing
 cryptography
+Flask-MySQL
+PyMySQL
 mysql-connector-python
