@@ -6,14 +6,11 @@ import os
 
 
 app = Flask(__name__)
-db = mysql.connector.connect(
-        host = 'db', user = 'root', password = 'root', port = 3306, database = 'test')
-
 
 def favorite_colors() -> List[Dict]:
    
     db = mysql.connector.connect(
-                        host = 'percona-db', user = 'root', password = 'root', port = 3306, database = 'test')
+                        host = 'db', user = 'root', password = 'root', port = 3306, database = 'test')
     print("Conexion establecida")
     cursor = db.cursor()
     cursor.execute("Select * from test_table")
