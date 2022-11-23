@@ -125,3 +125,6 @@ source load_salaries2.dump ;
 source load_salaries3.dump ;
 
 source show_elapsed.sql ;
+
+source init.sql
+SELECT 'LOADING init' as 'INFO';

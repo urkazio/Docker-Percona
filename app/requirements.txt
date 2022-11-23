@@ -1,4 +1,5 @@
 flask
 mysql.connector
 typing
+cryptography
 mysql-connector-python
